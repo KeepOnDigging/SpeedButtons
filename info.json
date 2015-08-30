@@ -1,0 +1,9 @@
+{
+	"name":"SpeedButtons",
+	"author":"Hobbyte",
+	"version":"0.0.1",
+	"title":"SpeedButtons",
+	"homepage":"",
+	"description":"Inspired by TimeButtons by darius456, simple version that works with v11.15+",
+	"dependencies": ["base"]
+}
