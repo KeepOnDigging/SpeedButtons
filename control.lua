@@ -2,58 +2,32 @@ require "defines"
 
 white = {r = 1, g = 1, b = 1}
 yellow = {r = 1, g = 1, b = 0}
+button_speeds = {["speedbutton05"] = 0.5, ["speedbutton1"] = 1, ["speedbutton2"] = 2, ["speedbutton4"] = 4, ["speedbutton8"] = 8}
+default_speed = "speedbutton1"
+
+function all_white()
+	for button_name, button_speed in pairs(button_speeds) do
+		game.player.gui.top.sb_frame[button_name].style.font_color = white
+	end
+end
 
 game.on_event(defines.events.on_tick, function(event)
 	if game.player.gui.top.sb_frame == nil then
-		game.player.gui.top.add({type="frame", name="sb_frame", caption="",direction="horizontal", style="sb_frame_style"})
-		game.player.gui.top.sb_frame.add({type = "button", name="speedbutton05", caption="x0.5", font_color = white, style="sb_button_style"})
-		game.player.gui.top.sb_frame.add({type = "button", name="speedbutton1", caption="x1", font_color = white, style="sb_button_style"})
-		game.player.gui.top.sb_frame.add({type = "button", name="speedbutton2", caption="x2", font_color = white, style="sb_button_style"})
-		game.player.gui.top.sb_frame.add({type = "button", name="speedbutton4", caption="x4", font_color = white, style="sb_button_style"})
-		game.player.gui.top.sb_frame.add({type = "button", name="speedbutton8", caption="x8", font_color = white, style="sb_button_style"})
-		game.player.gui.top.sb_frame["speedbutton1"].style.font_color = yellow
-		game.speed = 1
+		game.player.gui.top.add({type = "frame", name = "sb_frame", caption = "", direction = "horizontal", style = "sb_frame_style"})
+		for button_name, button_speed in pairs(button_speeds) do
+			game.player.gui.top.sb_frame.add({type = "button", name = button_name, caption = "x" .. button_speed, font_color = white, style = "sb_button_style"})
+		end
+		game.player.gui.top.sb_frame[default_speed].style.font_color = yellow
+		game.speed = button_speeds[default_speed]
 	end
 end)
 
-function all_white()
-	game.player.gui.top.sb_frame["speedbutton05"].style.font_color = white
-	game.player.gui.top.sb_frame["speedbutton1"].style.font_color = white
-	game.player.gui.top.sb_frame["speedbutton2"].style.font_color = white
-	game.player.gui.top.sb_frame["speedbutton4"].style.font_color = white
-	game.player.gui.top.sb_frame["speedbutton8"].style.font_color = white
-end
-
 game.on_event(defines.events.on_gui_click, function(event)
-
-	if event.element.name == "speedbutton05" then
-		all_white()
-		game.player.gui.top.sb_frame["speedbutton05"].style.font_color = yellow
-		game.speed = 0.5
+	for button_name, button_speed in pairs(button_speeds) do
+		if event.element.name == button_name then
+			all_white()
+			game.player.gui.top.sb_frame[button_name].style.font_color = yellow
+			game.speed = button_speed
+		end
 	end
-	
-	if event.element.name == "speedbutton1" then
-		all_white()
-		game.player.gui.top.sb_frame["speedbutton1"].style.font_color = yellow
-		game.speed = 1
-	end
-	
-	if event.element.name == "speedbutton2" then
-		all_white()
-		game.player.gui.top.sb_frame["speedbutton2"].style.font_color = yellow
-		game.speed = 2
-	end
-	
-	if event.element.name == "speedbutton4" then
-		all_white()
-		game.player.gui.top.sb_frame["speedbutton4"].style.font_color = yellow
-		game.speed = 4
-	end
-	
-	if event.element.name == "speedbutton8" then
-		all_white()
-		game.player.gui.top.sb_frame["speedbutton8"].style.font_color = yellow
-		game.speed = 8
-	end
-    
 end)
