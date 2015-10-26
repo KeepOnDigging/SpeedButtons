@@ -11,7 +11,7 @@ function all_white()
 	end
 end
 
-game.on_event(defines.events.on_tick, function(event)
+script.on_event(defines.events.on_tick, function(event)
 	if game.player.gui.top.sb_frame == nil then
 		game.player.gui.top.add({type = "frame", name = "sb_frame", caption = "", direction = "horizontal", style = "sb_frame_style"})
 		for button_name, button_speed in pairs(button_speeds) do
@@ -22,7 +22,7 @@ game.on_event(defines.events.on_tick, function(event)
 	end
 end)
 
-game.on_event(defines.events.on_gui_click, function(event)
+script.on_event(defines.events.on_gui_click, function(event)
 	for button_name, button_speed in pairs(button_speeds) do
 		if event.element.name == button_name then
 			all_white()
